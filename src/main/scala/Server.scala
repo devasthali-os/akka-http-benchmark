@@ -18,7 +18,7 @@ trait HttpRoutes {
         val resp = HttpEntity(ContentTypes.`application/json`,
           """{"data": "Hi, How can i help you?"}""".stripMargin)
 
-        println("timeTakenMillis:" + (System.currentTimeMillis() - starts))
+        //println("timeTakenMillis:" + (System.currentTimeMillis() - starts))
 
         resp
       }

@@ -24,4 +24,4 @@
     results))
 
 (defn -main "akka-http-benchmark" [& args]
-  (println (benchmark-result 100)))
+  (println (benchmark-result 1000)))
