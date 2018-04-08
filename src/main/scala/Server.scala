@@ -4,8 +4,10 @@ import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import com.typesafe.config.{Config, ConfigFactory}
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 trait HttpRoutes {
 
@@ -23,13 +25,32 @@ trait HttpRoutes {
         resp
       }
     }
-  }
+  } ~
+    path("chat-non-blocking") {
+      get {
+        complete {
+
+          Future {
+            val starts = System.currentTimeMillis()
+
+            val resp = HttpEntity(ContentTypes.`application/json`,
+              """{"data": "Hi, How can i help you?"}""".stripMargin)
+
+            //println("timeTakenMillis:" + (System.currentTimeMillis() - starts))
+
+            resp
+          }
+        }
+      }
+    }
 
 }
 
 class Server extends HttpRoutes {
 
-  implicit val nluSystem: ActorSystem = ActorSystem("api-benchs")
+  val config: Config = ConfigFactory.load()
+
+  implicit val nluSystem: ActorSystem = ActorSystem("api-benchmark", config.getConfig("actor-system-dev"))
   implicit val actorExecutor: ActorMaterializer = ActorMaterializer()
 
   def startServer(address: String, port: Int): Unit = {

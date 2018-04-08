@@ -16,6 +16,20 @@ sbt run
 run benchmarks
 --------------
 
+Server config
+-------------
+
+```
+$ system_profiler SPHardwareDataType | grep "  Memory:"
+      Memory: 16 GB
+
+$ system_profiler SPHardwareDataType | grep Cores:
+      Total Number of Cores: 4
+
+$ system_profiler SPHardwareDataType | grep Processors:
+      Number of Processors: 1
+```
+
 1- concurrency of 100 for 10^5 requests
 ---------------------------------------
 
@@ -144,6 +158,64 @@ Percentage of the requests served within a certain time (ms)
 
 ![](perf_1_million.png)
 
+3 - 10M requests
+----------------
+
+
 ```
-lein run
+ab -n 10000000 -c 100 -k http://127.0.0.1:9191/chat
+This is ApacheBench, Version 2.3 <$Revision: 1807734 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 1000000 requests
+Completed 2000000 requests
+Completed 3000000 requests
+Completed 4000000 requests
+Completed 5000000 requests
+Completed 6000000 requests
+Completed 7000000 requests
+Completed 8000000 requests
+Completed 9000000 requests
+Completed 10000000 requests
+Finished 10000000 requests
+
+
+Server Software:        akka-http/10.0.11
+Server Hostname:        127.0.0.1
+Server Port:            9191
+
+Document Path:          /chat
+Document Length:        35 bytes
+
+Concurrency Level:      100
+Time taken for tests:   468.758 seconds
+Complete requests:      10000000
+Failed requests:        0
+Keep-Alive requests:    10000000
+Total transferred:      1940000000 bytes
+HTML transferred:       350000000 bytes
+Requests per second:    21332.96 [#/sec] (mean)
+Time per request:       4.688 [ms] (mean)
+Time per request:       0.047 [ms] (mean, across all concurrent requests)
+Transfer rate:          4041.60 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0      71
+Processing:     0    5   8.5      3     263
+Waiting:        0    5   8.4      3     263
+Total:          0    5   8.5      3     263
+
+Percentage of the requests served within a certain time (ms)
+  50%      3
+  66%      4
+  75%      4
+  80%      5
+  90%      6
+  95%      8
+  98%     22
+  99%     36
+ 100%    263 (longest request)
 ```
