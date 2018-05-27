@@ -1,7 +1,7 @@
 Web API benchmarks
 ------------------
 
-- server uses akka-http
+- server uses `akka-http 10.0.11`
 
 
 run
@@ -30,9 +30,8 @@ $ system_profiler SPHardwareDataType | grep Processors:
       Number of Processors: 1
 ```
 
-1- concurrency of 100 for 10^5 requests
+1- concurrency of 100 for 100,000 requests
 ---------------------------------------
-
 
 ```
 ab -n 100000 -c 100 -k http://127.0.0.1:9191/chat
@@ -219,3 +218,7 @@ Percentage of the requests served within a certain time (ms)
   99%     36
  100%    263 (longest request)
 ```
+
+compare with Spring on Jetty - https://github.com/prayagupd/eccount-rest/tree/REST-API-load-balancing#perf
+
+techimpower benchmark - https://www.techempower.com/benchmarks/#section=data-r15&hw=ph&test=json&l=hr9u67
