@@ -50,11 +50,12 @@ class Server extends HttpRoutes {
 
   val config: Config = ConfigFactory.load()
 
-  implicit val nluSystem: ActorSystem = ActorSystem("api-benchmark", config.getConfig("actor-system-dev"))
+//  implicit val nluSystem = akka.actor.typed.ActorSystem(Behaviors.empty, "rest-api-benchmark")
+  implicit val nluSystem: ActorSystem = ActorSystem("rest-api-benchmark", config.getConfig("actor-system-dev"))
   implicit val actorExecutor: ActorMaterializer = ActorMaterializer()
 
   def startServer(address: String, port: Int): Unit = {
-    val b = Http().bindAndHandle(route, address, port)
+    val b = Http().newServerAt(address, port).bind(route)
 
     //b.flatMap(_.unbind()).onComplete(_ => nluSystem.terminate())
 

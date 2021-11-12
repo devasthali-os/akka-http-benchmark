@@ -1,4 +1,4 @@
-Web API benchmarks
+Akka HTTP benchmarks
 ------------------
 
 - server uses `akka-http 10.0.11`
@@ -7,7 +7,10 @@ Web API benchmarks
 run
 ---
 
-```
+```bash
+## https://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Mac.html
+brew install sbt
+
 sbt clean compile
 sbt run
 ```
@@ -219,6 +222,6 @@ Percentage of the requests served within a certain time (ms)
  100%    263 (longest request)
 ```
 
-compare with Spring on Jetty - https://github.com/prayagupd/eccount-rest/tree/REST-API-load-balancing#perf
+compare with Spring on Jetty - https://github.com/prayagupd/eccount-rest/blob/master/perf.md
 
 techimpower benchmark - https://www.techempower.com/benchmarks/#section=data-r15&hw=ph&test=json&l=hr9u67
