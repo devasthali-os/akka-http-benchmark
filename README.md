@@ -1,8 +1,10 @@
 Akka HTTP benchmarks
 ------------------
 
-- server uses `akka-http 10.0.11`
-
+- HTTP server uses `akka-http 10.2.7`
+- configs: `fork-join-executor`. see `src/main/resources/application.conf`
+- response is JSON `{"data": "Hi, How can i help you?"}`
+- mean TPR(time per request): `~5ms` vs `~100ms` of [Spring](https://github.com/prayagupd/eccount-rest/blob/master/perf.md) 
 
 run
 ---
@@ -33,7 +35,7 @@ $ system_profiler SPHardwareDataType | grep Processors:
       Number of Processors: 1
 ```
 
-1- concurrency of 100 for 100,000 requests
+1- concurrency of 100 for 100K requests
 ---------------------------------------
 
 ```
