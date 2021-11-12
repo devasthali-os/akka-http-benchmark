@@ -5,6 +5,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import com.typesafe.config.{Config, ConfigFactory}
+import akka.actor.typed.scaladsl.Behaviors
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -50,7 +51,7 @@ class Server extends HttpRoutes {
 
   val config: Config = ConfigFactory.load()
 
-//  implicit val nluSystem = akka.actor.typed.ActorSystem(Behaviors.empty, "rest-api-benchmark")
+//  implicit val nluSystem1 = akka.actor.typed.ActorSystem(Behaviors.empty, "rest-api-benchmark")
   implicit val nluSystem: ActorSystem = ActorSystem("rest-api-benchmark", config.getConfig("actor-system-dev"))
   implicit val actorExecutor: ActorMaterializer = ActorMaterializer()
 
